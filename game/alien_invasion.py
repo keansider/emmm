@@ -25,12 +25,8 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
+            self._update_bullets()
 
-            #删除子弹
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom<=0:
-                    self.bullets.remove(bullet)
-            print(len(self.bullets))
 
             self._update_screen()
 
@@ -58,10 +54,17 @@ class AlienInvasion:
         if event.key == pygame.K_SPACE:
             self._fire_bullet()
 
-    def _fire_bullet(self):
-        new_bullet=Bullet(self)
-        self.bullets.add(new_bullet)
+    def _update_bullets(self):
+        # 删除子弹
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        print(len(self.bullets))
 
+    def _fire_bullet(self):
+        if len(self.bullets)<self.settings.bullet_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
     def _check_keyup_events(self, event):
         # 抬起
