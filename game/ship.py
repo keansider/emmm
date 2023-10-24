@@ -8,10 +8,10 @@ class Ship:
         # 加载图像
         self.image = pygame.image.load('C:/Users/路小/PycharmProjects/emmm/game/plant.png')
         self.rect = self.image.get_rect()
-        # 放在底部中央
+
 
         self.settings = ai_game.settings
-
+        # 放在底部中央
         self.rect.midbottom = self.screen_rect.midbottom
         self.x = float(self.rect.x)
         self.moving_right = False
