@@ -8,8 +8,9 @@ class AlienInvasion:
     def __init__(self):
         #初始化
         pygame.init()
+        #导入设置
         self.settings = Settings()
-
+        #屏幕
         self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
         #设置背景色
@@ -26,8 +27,6 @@ class AlienInvasion:
             self.ship.update()
             self.bullets.update()
             self._update_bullets()
-
-
             self._update_screen()
 
     def _check_events(self):
@@ -35,22 +34,25 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            #按下按键
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
+            #抬起按键
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
 
     def _check_keydown_events(self,event):
         # 按下
+        # 向右
         if event.key == pygame.K_RIGHT:
-            # 向右
             self.ship.moving_right = True
+        # 向左
         if event.key == pygame.K_LEFT:
-            # 向右
             self.ship.moving_left = True
-            #按q退出
+        #按q退出
         if event.key == pygame.K_q:
             sys.exit()
+        #按空格开火
         if event.key == pygame.K_SPACE:
             self._fire_bullet()
 
@@ -62,7 +64,9 @@ class AlienInvasion:
         print(len(self.bullets))
 
     def _fire_bullet(self):
+        #开火
         if len(self.bullets)<self.settings.bullet_allowed:
+            #有最大子弹开火限制
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
